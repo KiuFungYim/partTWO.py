@@ -1,0 +1,53 @@
+# partTWO.py
+# Source URLs:
+# Bubble Sort: https://www.geeksforgeeks.org/python-program-for-bubble-sort/
+# Quick Sort: https://www.geeksforgeeks.org/python-program-for-quicksort/
+# Counting Sort: https://www.geeksforgeeks.org/python-program-for-counting-sort/
+
+import random
+import time
+from partOne import bubble_sort, quick_sort, counting_sort
+
+def generate_random_list(size):
+    """Generate a list of random 15-digit integers."""
+    return [random.randint(100000000000000, 999999999999999) for _ in range(size)]
+
+def measure_sorting_time(sort_function, data):
+    """Measure the time taken by a sorting function to sort data."""
+    start_time = time.time()
+    sort_function(data)
+    end_time = time.time()
+    return (end_time - start_time) * 1000  # Convert to milliseconds
+
+def main():
+    start_size = 100000  # Starting from 100K
+    end_size = 1000000   # Up to 1000K
+    interval = 50000     # Increment interval of 50K
+    sizes = list(range(start_size, end_size + 1, interval))
+
+    print(f"{'List Size':<15}{'Bubble Sort (ms)':<20}{'Quick Sort (ms)':<20}{'Counting Sort (ms)':<20}")
+
+    for size in sizes:
+        random_list = generate_random_list(size)
+
+        bubble_time = measure_sorting_time(bubble_sort, random_list.copy())
+        quick_time = measure_sorting_time(quick_sort, random_list.copy())
+        counting_time = measure_sorting_time(counting_sort, random_list.copy())
+
+        print(f"{size:<15}{bubble_time:<20.2f}{quick_time:<20.2f}{counting_time:<20.2f}")
+
+if __name__ == '__main__':
+    main()
+
+
+
+Expected Output Format
+The output will be a table showing the sorting times for each algorithm at various input sizes similar to this.
+
+basic
+
+List Size      Bubble Sort (ms)    Quick Sort (ms)     Counting Sort (ms)
+100000        ...                  ...                  ...
+150000        ...                  ...                  ...
+...
+1000000       ...                  ...                  ...
